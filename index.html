@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysteM Shop - Manual Completo do Cliente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --emerald-primary: #10b981;
+            --emerald-dark: #059669;
+            --emerald-light: #34d399;
+            --emerald-bg: #064e3b;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #000000;
+        }
+        
+        .gradient-emerald { 
+            background: linear-gradient(135deg, var(--emerald-primary) 0%, var(--emerald-dark) 100%); 
+        }
+        
+        .card-hover { 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        
+        .card-hover:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.15); 
+        }
+        
+        .tab-content { 
+            display: none; 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .tab-content.active { 
+            display: block; 
+        }
+        
+        .tab-button.active { 
+            background: var(--emerald-primary) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--emerald-primary);
+            border-radius: 4px;
+        }
+        
+        .svg-icon {
+            width: 48px;
+            height: 48px;
+            fill: currentColor;
+        }
+        
+        .svg-icon-sm {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen custom-scrollbar">
+    <!-- Header -->
+    <header class="gradient-emerald text-white py-20">
+        <div class="container mx-auto px-8 text-center">
+            <div class="mb-6">
+                <svg class="mx-auto mb-4" width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7V9H22V7L12 2M4 10V20C4 20.6 4.4 21 5 21H19C19.6 21 20 20.6 20 20V10H4M6 12H8V18H6V12M10 12H12V18H10V12M14 12H16V18H14V12M18 12V18H18V12M11 14H13V16H11V14Z"/>
+                </svg>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">SysteM Shop</h1>
+            <p class="text-2xl md:text-3xl opacity-90 mb-4">Produtos Digitais Premium</p>
+            <p class="text-lg md:text-xl opacity-75 mb-8">Manual Completo e Políticas da Loja</p>
+            <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
+                <p class="text-lg font-medium">Leia atentamente todas as seções antes de realizar sua compra</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-gray-900 shadow-2xl sticky top-0 z-50 border-b border-emerald-500">
+        <div class="container mx-auto px-8">
+            <div class="flex flex-wrap justify-center gap-3 py-6">
+                <button onclick="showTab('inicio')" class="tab-button active px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-600 hover:text-white bg-gray-800 text-gray-300 flex items-center gap-2">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Início
+                </button>
+                <button onclick="showTab('termos')" class="tab-button px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-600 hover:text-white bg-gray-800 text-gray-300 flex items-center gap-2">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    Termos de Uso
+                </button>
+                <button onclick="showTab('guia')" class="tab-button px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-600 hover:text-white bg-gray-800 text-gray-300 flex items-center gap-2">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24">
+                        <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19Z"/>
+                    </svg>
+                    Guia do Cliente
+                </button>
+                <button onclick="showTab('bancos')" class="tab-button px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-600 hover:text-white bg-gray-800 text-gray-300 flex items-center gap-2">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                    </svg>
+                    Bancos Proibidos
+                </button>
+                <button onclick="showTab('suporte')" class="tab-button px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-600 hover:text-white bg-gray-800 text-gray-300 flex items-center gap-2">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24">
+                        <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3Z"/>
+                    </svg>
+                    Suporte
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-8 py-16">
+        
+        <!-- Início Tab -->
+        <div id="inicio" class="tab-content active">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Bem-vindo à SysteM Shop</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Somos uma loja especializada em produtos digitais de alta qualidade. Nossa missão é fornecer 
+                    soluções digitais confiáveis com atendimento excepcional e total transparência em nossas políticas.
+                </p>
+            </div>
+
+            <div class="max-w-7xl mx-auto space-y-12">
+                <!-- Apresentação Principal -->
+                <div class="gradient-emerald rounded-3xl shadow-2xl p-12 text-white">
+                    <div class="text-center mb-10">
+                        <h3 class="text-3xl font-bold mb-6">Por que escolher a SysteM Shop?</h3>
+                        <p class="text-xl opacity-90 max-w-4xl mx-auto">
+                            Trabalhamos com dedicação total para garantir que cada cliente tenha uma experiência 
+                            excepcional. Nossos produtos são cuidadosamente selecionados e testados.
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl text-center">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Segurança Total</h4>
+                            <p class="opacity-90">Transações protegidas e dados seguros em todas as operações</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl text-center">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Suporte Especializado</h4>
+                            <p class="opacity-90">Equipe humana treinada para resolver qualquer questão rapidamente</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl text-center">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Entrega Rápida</h4>
+                            <p class="opacity-90">Produtos entregues em até 24 horas, muitos instantaneamente</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Catálogo de Produtos -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <h3 class="text-3xl font-bold text-white mb-8 text-center">Nosso Catálogo Completo</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-emerald-600 text-white p-8 rounded-2xl text-center card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M12,15C12.81,15 13.5,14.7 14.11,14.11C14.7,13.5 15,12.81 15,12C15,11.19 14.7,10.5 14.11,9.89C13.5,9.3 12.81,9 12,9C11.19,9 10.5,9.3 9.89,9.89C9.3,10.5 9,11.19 9,12C9,12.81 9.3,13.5 9.89,14.11C10.5,14.7 11.19,15 12,15M12,2C14.21,2 16.21,2.81 17.78,4.39C19.36,5.96 20.17,7.96 20.17,10.17C20.17,12.38 19.36,14.38 17.78,15.95L12,21.5L6.22,15.95C4.64,14.38 3.83,12.38 3.83,10.17C3.83,7.96 4.64,5.96 6.22,4.39C7.79,2.81 9.79,2 12,2Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Contas Premium</h4>
+                            <p class="text-sm opacity-90">Individuais e compartilhadas de plataformas populares</p>
+                        </div>
+                        <div class="bg-blue-600 text-white p-8 rounded-2xl text-center card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Assinaturas</h4>
+                            <p class="text-sm opacity-90">Serviços de streaming, software e aplicativos</p>
+                        </div>
+                        <div class="bg-purple-600 text-white p-8 rounded-2xl text-center card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M21.47,4.35L20.13,3.79V12.82L22.56,6.96C22.97,5.94 22.5,4.77 21.47,4.35M1.97,8.05L6.93,20C7.24,20.77 7.97,21.24 8.74,21.26C9.5,21.28 10.27,20.84 10.61,20.1L13,14.8C13.39,15.17 13.72,15.56 14.36,15.56C15.15,15.56 15.56,14.69 15.56,14.69L18.8,4.9L2.82,5.21C1.81,5.26 1.16,6.29 1.97,8.05Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Gift Cards</h4>
+                            <p class="text-sm opacity-90">Cartões-presente para diversas plataformas</p>
+                        </div>
+                        <div class="bg-orange-600 text-white p-8 rounded-2xl text-center card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-3">Ferramentas</h4>
+                            <p class="text-sm opacity-90">Utilitários, chaves de jogos e softwares</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-yellow-600 text-white p-6 rounded-2xl text-center">
+                        <p class="text-lg font-semibold">Importante: Todos os produtos são 100% digitais - Não realizamos envios físicos</p>
+                    </div>
+                </div>
+
+                <!-- Navegação Rápida -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <h3 class="text-3xl font-bold text-white mb-8 text-center">Navegação Rápida</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <button onclick="showTab('termos')" class="bg-emerald-600 hover:bg-emerald-700 text-white p-8 rounded-2xl text-center transition-all duration-300 card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            <h4 class="text-lg font-bold mb-2">Termos de Uso</h4>
+                            <p class="text-sm opacity-90">Políticas e regras da loja</p>
+                        </button>
+                        <button onclick="showTab('guia')" class="bg-blue-600 hover:bg-blue-700 text-white p-8 rounded-2xl text-center transition-all duration-300 card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M19,3H5C3.9,3 3,3.9 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.9 20.1,3 19,3M19,19H5V5H19V19Z"/>
+                            </svg>
+                            <h4 class="text-lg font-bold mb-2">Guia do Cliente</h4>
+                            <p class="text-sm opacity-90">Manual de uso e dicas</p>
+                        </button>
+                        <button onclick="showTab('bancos')" class="bg-red-600 hover:bg-red-700 text-white p-8 rounded-2xl text-center transition-all duration-300 card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                            </svg>
+                            <h4 class="text-lg font-bold mb-2">Bancos Proibidos</h4>
+                            <p class="text-sm opacity-90">Métodos não aceitos</p>
+                        </button>
+                        <button onclick="showTab('suporte')" class="bg-purple-600 hover:bg-purple-700 text-white p-8 rounded-2xl text-center transition-all duration-300 card-hover">
+                            <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                                <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3Z"/>
+                            </svg>
+                            <h4 class="text-lg font-bold mb-2">Suporte</h4>
+                            <p class="text-sm opacity-90">Contato e atendimento</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Aviso Importante -->
+                <div class="bg-red-600 rounded-3xl shadow-2xl p-12 text-white text-center">
+                    <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                        <path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+                    </svg>
+                    <h3 class="text-3xl font-bold mb-6">Leitura Obrigatória Antes da Compra</h3>
+                    <p class="text-xl mb-8 max-w-4xl mx-auto">
+                        Para garantir uma experiência sem problemas e evitar mal-entendidos, é ESSENCIAL 
+                        que você leia completamente as seguintes seções antes de finalizar qualquer compra:
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-3">1. Termos de Uso</h4>
+                            <p class="text-sm opacity-90">Políticas de produtos, entrega, reembolso e garantias</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-3">2. Bancos Proibidos</h4>
+                            <p class="text-sm opacity-90">Métodos de pagamento que NÃO são aceitos</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-3">3. Guia do Cliente</h4>
+                            <p class="text-sm opacity-90">Como usar corretamente nossos produtos</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-2xl">
+                        <p class="text-lg font-bold">A informação é sua melhor proteção - Leia antes de comprar!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Termos Tab -->
+        <div id="termos" class="tab-content">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Termos de Uso</h2>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
+                    Leia atentamente todos os termos e condições. Ao realizar uma compra, você automaticamente 
+                    concorda com todas as políticas descritas abaixo.
+                </p>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12">
+                <!-- Produtos e Serviços -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-10 border border-gray-800 card-hover">
+                    <div class="flex items-center mb-6">
+                        <svg class="svg-icon mr-4 text-emerald-500" viewBox="0 0 24 24">
+                            <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white">Produtos e Serviços</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-emerald-400 mb-3">O que vendemos:</h4>
+                            <ul class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-emerald-500 mr-3 mt-1">•</span>
+                                    <span><strong>Contas digitais:</strong> Individuais (uso exclusivo) e compartilhadas (uso coletivo)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-emerald-500 mr-3 mt-1">•</span>
+                                    <span><strong>Assinaturas:</strong> Serviços de streaming, software, aplicativos</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-emerald-500 mr-3 mt-1">•</span>
+                                    <span><strong>Gift Cards:</strong> Cartões-presente para diversas plataformas</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-emerald-500 mr-3 mt-1">•</span>
+                                    <span><strong>Chaves de jogos:</strong> Ativação para Steam, Epic, Origin, etc.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-emerald-500 mr-3 mt-1">•</span>
+                                    <span><strong>Ferramentas digitais:</strong> Softwares, utilitários, licenças</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-yellow-600 text-white p-6 rounded-2xl">
+                            <h4 class="font-bold mb-2">Importante sobre produtos digitais:</h4>
+                            <p class="text-sm">Todos os produtos são 100% digitais. NÃO realizamos envios físicos. Ao comprar, você declara estar ciente de que receberá apenas dados digitais (logins, códigos, chaves, etc.).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processo de Entrega -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-10 border border-gray-800 card-hover">
+                    <div class="flex items-center mb-6">
+                        <svg class="svg-icon mr-4 text-blue-500" viewBox="0 0 24 24">
+                            <path d="M3,8L9,5L15,7L21,4V17L15,20L9,18L3,21V8M8,6.09L4,7.91V18.91L8,17.09V6.09M10,6.91V17.91L14,16.09V5.09L10,6.91M16,5.09V16.09L20,14.91V3.91L16,5.09Z"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white">Processo de Entrega</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-blue-400 mb-3">Como funciona:</h4>
+                            <ol class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">1</span>
+                                    <span>Você realiza o pagamento através de método aceito</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">2</span>
+                                    <span>Aguardamos a confirmação automática do pagamento</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">3</span>
+                                    <span>Enviamos o produto via Discord</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="bg-emerald-600 text-white p-6 rounded-2xl">
+                            <h4 class="font-bold mb-3">Prazos de entrega:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• <strong>Produtos automáticos:</strong> Entrega instantânea</li>
+                                <li>• <strong>Produtos manuais:</strong> Até 24 horas após confirmação</li>
+                                <li>• <strong>Horário comercial:</strong> Segunda a sábado, 9h às 22h</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-600 text-white p-4 rounded-2xl">
+                            <p class="text-sm font-semibold">⚠️ É sua responsabilidade estar no Discord para receber o produto. Produtos não recebidos por ausência do cliente não geram reembolso.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Política de Reembolso -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-10 border border-gray-800 card-hover">
+                    <div class="flex items-center mb-6">
+                        <svg class="svg-icon mr-4 text-red-500" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M14.5,9L13.09,10.41L11.5,8.83L9.91,10.41L8.5,9L10.09,7.41L11.5,5.83L12.91,7.41L14.5,9M8.5,15L9.91,13.59L11.5,15.17L13.09,13.59L14.5,15L12.91,16.41L11.5,18L10.09,16.41L8.5,15Z"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white">Política de Reembolso</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-red-600 text-white p-6 rounded-2xl">
+                            <h4 class="font-bold mb-3">Regra geral:</h4>
+                            <p class="text-sm">NÃO realizamos reembolsos após a entrega do produto digital, pois não é possível "devolver" informações já fornecidas.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-red-400 mb-3">Exceções (quando fazemos reembolso):</h4>
+                            <ul class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-3 mt-1">✓</span>
+                                    <span><strong>Erro comprovado da loja:</strong> Produto diferente do anunciado</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-3 mt-1">✓</span>
+                                    <span><strong>Produto não funcional:</strong> Quando não conseguimos resolver o problema</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-yellow-600 text-white p-6 rounded-2xl">
+                            <h4 class="font-bold mb-3">Condutas que resultam em bloqueio:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Tentativas de estorno indevido no cartão/banco</li>
+                                <li>• Solicitar reembolso após usar o produto</li>
+                                <li>• Alegações falsas sobre funcionamento</li>
+                                <li>• Ameaças ou chantagem para obter reembolso</li>
+                            </ul>
+                            <p class="mt-3 font-bold">Consequências: Bloqueio permanente + possível ação legal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Garantias -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-10 border border-gray-800 card-hover">
+                    <div class="flex items-center mb-6">
+                        <svg class="svg-icon mr-4 text-green-500" viewBox="0 0 24 24">
+                            <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white">Sistema de Garantias</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-lg font-semibold text-green-400 mb-3">Como funciona:</h4>
+                            <ul class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-3 mt-1">•</span>
+                                    <span><strong>Garantia limitada:</strong> Período especificado na descrição de cada produto</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-3 mt-1">•</span>
+                                    <span><strong>Cobertura:</strong> Falhas técnicas dentro do período e uso correto</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-3 mt-1">•</span>
+                                    <span><strong>Produtos temporários:</strong> Não há renovação automática</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-600 text-white p-6 rounded-2xl">
+                            <h4 class="font-bold mb-3">O que a garantia cobre:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Conta que para de funcionar sem motivo</li>
+                                <li>• Dados incorretos fornecidos pela loja</li>
+                                <li>• Problemas técnicos do produto</li>
+                            </ul>
+                        </div>
+                        <div class="bg-orange-600 text-white p-6 rounded-2xl">
+                            <h4 class="font-bold mb-3">O que NÃO é coberto:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Uso incorreto ou alteração de dados</li>
+                                <li>• Compartilhamento não autorizado</li>
+                                <li>• Problemas após o período de garantia</li>
+                                <li>• Mudanças nas políticas da plataforma original</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsabilidades do Cliente -->
+                <div class="lg:col-span-2 bg-gray-900 rounded-3xl shadow-2xl p-10 border border-gray-800 card-hover">
+                    <div class="flex items-center mb-6">
+                        <svg class="svg-icon mr-4 text-purple-500" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                        <h3 class="text-2xl font-bold text-white">Responsabilidades do Cliente</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold text-purple-400 mb-4">Antes da compra, você DEVE:</h4>
+                            <ul class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Ler completamente a descrição do produto</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Verificar compatibilidade com seus dispositivos</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Confirmar se funciona na sua região/país</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Entender o tipo de produto (individual/compartilhado)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-purple-400 mb-4">Após receber, você DEVE:</h4>
+                            <ul class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Usar os dados exatamente como fornecidos</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Guardar as informações com segurança</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Seguir as instruções de uso fornecidas</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-3 mt-1">•</span>
+                                    <span>Entrar em contato imediatamente se houver problemas</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-red-600 text-white p-8 rounded-2xl">
+                        <h4 class="text-xl font-bold mb-4 text-center">Condutas Estritamente Proibidas</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-red-200 mr-3 mt-1">❌</span>
+                                    <span>Compartilhar logins com terceiros</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-200 mr-3 mt-1">❌</span>
+                                    <span>Alterar senhas sem autorização</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-200 mr-3 mt-1">❌</span>
+                                    <span>Revender produtos sem permissão</span>
+                                </li>
+                            </ul>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="text-red-200 mr-3 mt-1">❌</span>
+                                    <span>Solicitar reembolso após usar</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-200 mr-3 mt-1">❌</span>
+                                    <span>Ofender ou ameaçar o suporte</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-200 mr-3 mt-1">❌</span>
+                                    <span>Fazer estornos indevidos</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-xl text-center">
+                            <p class="font-bold">Consequências: Cancelamento imediato sem reembolso + Bloqueio permanente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Declaração de Aceite -->
+            <div class="mt-12 gradient-emerald rounded-3xl shadow-2xl p-12 text-white text-center">
+                <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                </svg>
+                <h3 class="text-3xl font-bold mb-6">Declaração de Aceite dos Termos</h3>
+                <p class="text-xl mb-8 max-w-4xl mx-auto">
+                    Ao finalizar qualquer compra em nossa loja, você automaticamente declara e confirma que:
+                </p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                        <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                        <h4 class="text-lg font-bold mb-3">Leu e Aceitou</h4>
+                        <p class="text-sm opacity-90">Todos os termos e condições descritos nesta seção</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                        <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                        <h4 class="text-lg font-bold mb-3">Está Ciente</h4>
+                        <p class="text-sm opacity-90">Das políticas de entrega, reembolso, garantia e responsabilidades</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                        <svg class="svg-icon mx-auto mb-4" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                        </svg>
+                        <h4 class="text-lg font-bold mb-3">Concorda</h4>
+                        <p class="text-sm opacity-90">Com as restrições bancárias e métodos de pagamento aceitos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guia Tab -->
+        <div id="guia" class="tab-content">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Guia Completo do Cliente</h2>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
+                    Manual detalhado com tudo que você precisa saber para ter uma experiência perfeita 
+                    com nossos produtos digitais. Siga estas orientações para evitar problemas.
+                </p>
+            </div>
+
+            <div class="max-w-7xl mx-auto space-y-12">
+                <!-- Antes da Compra -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="flex items-center mb-8">
+                        <svg class="svg-icon mr-4 text-blue-500" viewBox="0 0 24 24">
+                            <path d="M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M6.5,2H17.5L19,3.5V11.81C18.42,11.26 17.75,10.81 17,10.5V4H7V20H10.09C10.21,20.72 10.46,21.39 10.81,22H6.5L5,20.5V3.5L6.5,2M13,7H15V9H13V7M9,7H11V9H9V7M13,11H15V13H13V11M9,11H11V13H9V11M13,15H15V17H13V15M9,15H11V17H9V15Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">Checklist Antes da Compra</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <h4 class="text-xl font-semibold text-blue-400 mb-4">Verificações Obrigatórias:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-blue-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">1. Leia a Descrição Completa</h5>
+                                    <ul class="text-sm space-y-2">
+                                        <li>• Tipo de conta (individual ou compartilhada)</li>
+                                        <li>• Tempo de acesso/validade</li>
+                                        <li>• Limitações e restrições</li>
+                                        <li>• Instruções específicas de uso</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">2. Verifique Compatibilidade</h5>
+                                    <ul class="text-sm space-y-2">
+                                        <li>• Funciona no seu dispositivo (PC, mobile, TV)</li>
+                                        <li>• Disponível na sua região/país</li>
+                                        <li>• Requisitos de sistema operacional</li>
+                                        <li>• Necessidade de VPN ou não</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <h4 class="text-xl font-semibold text-purple-400 mb-4">Informações Importantes:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-purple-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">3. Entenda o Produto</h5>
+                                    <ul class="text-sm space-y-2">
+                                        <li>• Diferença entre conta individual e compartilhada</li>
+                                        <li>• Período de garantia oferecido</li>
+                                        <li>• Política de renovação (se aplicável)</li>
+                                        <li>• Suporte incluído</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-orange-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">4. Prepare-se para Receber</h5>
+                                    <ul class="text-sm space-y-2">
+                                        <li>• Esteja no Discord para receber o produto</li>
+                                        <li>• Tenha um local seguro para guardar os dados</li>
+                                        <li>• Esteja disponível para testar após receber</li>
+                                        <li>• Leia as instruções fornecidas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Após a Compra -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="flex items-center mb-8">
+                        <svg class="svg-icon mr-4 text-emerald-500" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">Procedimentos Após a Compra</h3>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-emerald-600 text-white p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-4">Primeiros Passos</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <span class="mr-2">1.</span>
+                                    <span>Aguarde no Discord o contato da equipe</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">2.</span>
+                                    <span>Salve os dados em local seguro</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">3.</span>
+                                    <span>Teste o produto imediatamente</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">4.</span>
+                                    <span>Leia as instruções fornecidas</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-600 text-white p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-4">Uso Correto</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Use exatamente como orientado</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Não altere dados sem permissão</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Respeite limites de uso simultâneo</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Mantenha dados confidenciais</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-purple-600 text-white p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-4">Em Caso de Problemas</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Entre em contato no Discord imediatamente</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Informe número do pedido</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Descreva o problema detalhadamente</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">•</span>
+                                    <span>Aguarde orientações do suporte</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contas Compartilhadas -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="flex items-center mb-8">
+                        <svg class="svg-icon mr-4 text-yellow-500" viewBox="0 0 24 24">
+                            <path d="M16,4C18.11,4 20.11,4.89 21.61,6.39C23.11,7.89 24,9.89 24,12A8,8 0 0,1 16,20H5A5,5 0 0,1 0,15A5,5 0 0,1 5,10C5,6.69 7.69,4 11,4H16M16,6H11A3,3 0 0,0 8,9A3,3 0 0,0 11,12H16A6,6 0 0,0 22,6A6,6 0 0,0 16,6Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">Guia Especial: Contas Compartilhadas</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-semibold text-yellow-400 mb-6">O que são contas compartilhadas?</h4>
+                            <div class="bg-yellow-600 text-white p-6 rounded-2xl mb-6">
+                                <p class="mb-4">São contas onde múltiplos usuários têm acesso simultâneo, cada um com seu próprio perfil ou slot. O custo é menor, mas há regras específicas.</p>
+                                <h5 class="font-bold mb-2">Características:</h5>
+                                <ul class="text-sm space-y-1">
+                                    <li>• Uso coletivo com outros clientes</li>
+                                    <li>• Perfis/slots limitados</li>
+                                    <li>• Preço mais acessível</li>
+                                    <li>• Regras mais rígidas</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-red-400 mb-6">Regras Obrigatórias:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-red-600 text-white p-4 rounded-xl">
+                                    <h5 class="font-bold mb-2">❌ NUNCA faça:</h5>
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Alterar e-mail da conta</li>
+                                        <li>• Mudar senha principal</li>
+                                        <li>• Modificar dados de pagamento</li>
+                                        <li>• Compartilhar com terceiros</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-600 text-white p-4 rounded-xl">
+                                    <h5 class="font-bold mb-2">✅ SEMPRE faça:</h5>
+                                    <ul class="text-sm space-y-1">
+                                        <li>• Use apenas seu perfil designado</li>
+                                        <li>• Respeite outros usuários</li>
+                                        <li>• Siga as instruções exatamente</li>
+                                        <li>• Reporte problemas imediatamente</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problemas Comuns -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="flex items-center mb-8">
+                        <svg class="svg-icon mr-4 text-red-500" viewBox="0 0 24 24">
+                            <path d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">Soluções para Problemas Comuns</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-gray-800">
+                                    <th class="text-left p-6 font-bold text-white text-lg">Problema</th>
+                                    <th class="text-left p-6 font-bold text-white text-lg">Possíveis Causas</th>
+                                    <th class="text-left p-6 font-bold text-white text-lg">Soluções</th>
+                                    <th class="text-left p-6 font-bold text-white text-lg">Prevenção</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                <tr class="hover:bg-gray-800 transition-colors">
+                                    <td class="p-6 text-gray-300 font-medium">Não recebi o produto</td>
+                                    <td class="p-6 text-gray-400">
+                                        • Não estava no Discord<br>
+                                        • Problema na entrega<br>
+                                        • Pagamento não confirmado
+                                    </td>
+                                    <td class="p-6 text-emerald-400">
+                                        • Verificar se está no Discord<br>
+                                        • Confirmar pagamento aprovado<br>
+                                        • Chamar suporte com número do pedido
+                                    </td>
+                                    <td class="p-6 text-blue-400">
+                                        • Estar online no Discord após compra<br>
+                                        • Verificar dados de pagamento
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-800 transition-colors">
+                                    <td class="p-6 text-gray-300 font-medium">Conta não funciona</td>
+                                    <td class="p-6 text-gray-400">
+                                        • Login simultâneo<br>
+                                        • Uso incorreto<br>
+                                        • Alteração de dados
+                                    </td>
+                                    <td class="p-6 text-emerald-400">
+                                        • Seguir instruções exatamente<br>
+                                        • Aguardar outros usuários saírem<br>
+                                        • Contatar suporte para verificação
+                                    </td>
+                                    <td class="p-6 text-blue-400">
+                                        • Ler instruções completamente<br>
+                                        • Não alterar nenhum dado
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-800 transition-colors">
+                                    <td class="p-6 text-gray-300 font-medium">Perdi os dados</td>
+                                    <td class="p-6 text-gray-400">
+                                        • Não salvou após receber<br>
+                                        • Deletou por engano<br>
+                                        • Problema no dispositivo
+                                    </td>
+                                    <td class="p-6 text-emerald-400">
+                                        • Solicitar reenvio no Discord<br>
+                                        • Verificar histórico de mensagens<br>
+                                        • Procurar no chat privado
+                                    </td>
+                                    <td class="p-6 text-blue-400">
+                                        • Salvar em múltiplos locais<br>
+                                        • Fazer backup dos dados
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-800 transition-colors">
+                                    <td class="p-6 text-gray-300 font-medium">Produto parou de funcionar</td>
+                                    <td class="p-6 text-gray-400">
+                                        • Fim da validade<br>
+                                        • Problema na plataforma<br>
+                                        • Uso inadequado
+                                    </td>
+                                    <td class="p-6 text-emerald-400">
+                                        • Verificar período de garantia<br>
+                                        • Contatar suporte imediatamente<br>
+                                        • Aguardar análise técnica
+                                    </td>
+                                    <td class="p-6 text-blue-400">
+                                        • Anotar data de compra<br>
+                                        • Usar conforme orientações
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Dicas de Atendimento -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="flex items-center mb-8">
+                        <svg class="svg-icon mr-4 text-green-500" viewBox="0 0 24 24">
+                            <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white">Como Obter o Melhor Atendimento</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-400 mb-6">Comportamento Adequado:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-green-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">✅ Faça Assim:</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• Seja claro e objetivo na descrição</li>
+                                        <li>• Informe sempre o número do pedido</li>
+                                        <li>• Forneça detalhes do problema</li>
+                                        <li>• Seja respeitoso e paciente</li>
+                                        <li>• Aguarde resposta no horário comercial</li>
+                                        <li>• Siga as orientações fornecidas</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">Exemplo de Mensagem Ideal:</h5>
+                                    <div class="bg-white bg-opacity-20 p-4 rounded-lg text-sm">
+                                        <p>"Olá! Comprei o produto X (pedido #12345) e estou com dificuldade para acessar. Quando tento fazer login, aparece a mensagem 'erro de autenticação'. Já tentei aguardar e tentar novamente, mas persiste. Podem me ajudar?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-red-400 mb-6">Comportamentos que Prejudicam:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-red-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">❌ Evite Fazer:</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• Enviar múltiplas mensagens seguidas (spam)</li>
+                                        <li>• Usar linguagem ofensiva ou ameaças</li>
+                                        <li>• Exigir atendimento fora do horário</li>
+                                        <li>• Mentir sobre problemas para obter vantagens</li>
+                                        <li>• Comparar com outras lojas de forma agressiva</li>
+                                        <li>• Fazer chantagem emocional</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-orange-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">⚠️ Consequências:</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• Atendimento mais demorado</li>
+                                        <li>• Bloqueio temporário ou permanente</li>
+                                        <li>• Recusa de suporte futuro</li>
+                                        <li>• Cancelamento sem reembolso</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dicas Finais -->
+                <div class="gradient-emerald rounded-3xl shadow-2xl p-12 text-white text-center">
+                    <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                        <path d="M12,2L13.09,8.26L22,9L13.09,9.74L12,16L10.91,9.74L2,9L10.91,8.26L12,2Z"/>
+                    </svg>
+                    <h3 class="text-3xl font-bold mb-6">Dicas de Ouro para o Sucesso</h3>
+                    <div class="grid md:grid-cols-3 gap-8 mb-8">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-4">Antes de Comprar</h4>
+                            <p class="text-sm opacity-90">Leia tudo, verifique compatibilidade, entenda o produto. Informação é proteção!</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-4">Durante o Uso</h4>
+                            <p class="text-sm opacity-90">Siga instruções, mantenha dados seguros, use com responsabilidade. Respeite as regras!</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-4">Precisa de Ajuda?</h4>
+                            <p class="text-sm opacity-90">Seja claro, respeitoso e paciente. Nossa equipe está aqui para ajudar!</p>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-2xl">
+                        <p class="text-lg font-bold">Lembre-se: Seguindo este guia, você terá uma experiência perfeita conosco!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bancos Tab -->
+        <div id="bancos" class="tab-content">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Bancos e Métodos Proibidos</h2>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
+                    Por questões técnicas e de segurança, alguns métodos de pagamento não são aceitos em nossa loja. 
+                    Verifique esta lista antes de finalizar sua compra para evitar cancelamentos.
+                </p>
+            </div>
+
+            <div class="max-w-6xl mx-auto space-y-12">
+                <!-- Métodos Proibidos -->
+                <div class="bg-red-600 rounded-3xl shadow-2xl p-12 text-white">
+                    <div class="text-center mb-10">
+                        <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-6">Métodos NÃO Aceitos</h3>
+                        <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                            Os seguintes métodos de pagamento são automaticamente recusados por nosso sistema. 
+                            Pagamentos feitos através deles não serão processados e não haverá entrega do produto.
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mb-10">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-10 rounded-3xl text-center">
+                            <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                            </svg>
+                            <h4 class="text-2xl font-bold mb-4">Banco Inter</h4>
+                            <div class="space-y-3 text-sm">
+                                <p class="opacity-90">Todos os pagamentos via Banco Inter são automaticamente rejeitados</p>
+                                <div class="bg-red-700 bg-opacity-50 p-4 rounded-xl">
+                                    <p class="font-semibold">Motivo: Incompatibilidade técnica com nosso gateway de pagamento</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-10 rounded-3xl text-center">
+                            <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                            </svg>
+                            <h4 class="text-2xl font-bold mb-4">PicPay</h4>
+                            <div class="space-y-3 text-sm">
+                                <p class="opacity-90">Não processamos pagamentos através da plataforma PicPay</p>
+                                <div class="bg-red-700 bg-opacity-50 p-4 rounded-xl">
+                                    <p class="font-semibold">Motivo: Política de segurança e prevenção de fraudes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm p-8 rounded-2xl text-center">
+                        <h4 class="text-xl font-bold mb-4">⚠️ Importante: O que acontece se você tentar usar?</h4>
+                        <div class="grid md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+                                <p class="font-semibold mb-2">1. Recusa Automática</p>
+                                <p>O pagamento será rejeitado pelo sistema</p>
+                            </div>
+                            <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+                                <p class="font-semibold mb-2">2. Sem Entrega</p>
+                                <p>Nenhum produto será enviado</p>
+                            </div>
+                            <div class="bg-white bg-opacity-10 p-4 rounded-xl">
+                                <p class="font-semibold mb-2">3. Estorno Automático</p>
+                                <p>Valor retorna em até 5 dias úteis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métodos Aceitos -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="text-center mb-10">
+                        <svg class="svg-icon mx-auto mb-6 text-emerald-500" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white mb-6">Métodos Aceitos e Recomendados</h3>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            Use qualquer um destes métodos para garantir que sua compra seja processada com sucesso 
+                            e você receba seu produto rapidamente.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-emerald-600 text-white p-8 rounded-2xl card-hover">
+                            <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                                <path d="M5,6H23V18H5V6M14,9A3,3 0 0,1 17,12A3,3 0 0,1 14,15A3,3 0 0,1 11,12A3,3 0 0,1 14,9M9,8A2,2 0 0,1 7,10V14A2,2 0 0,1 9,16H19A2,2 0 0,1 21,14V10A2,2 0 0,1 19,8H9Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-4 text-center">Bancos Tradicionais</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Banco do Brasil</li>
+                                <li>• Bradesco</li>
+                                <li>• Itaú Unibanco</li>
+                                <li>• Santander</li>
+                                <li>• Caixa Econômica Federal</li>
+                                <li>• HSBC</li>
+                                <li>• Safra</li>
+                            </ul>
+                            <div class="mt-4 bg-white bg-opacity-20 p-3 rounded-lg text-center">
+                                <p class="text-xs font-semibold">Processamento: Instantâneo a 24h</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-600 text-white p-8 rounded-2xl card-hover">
+                            <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                                <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-4 text-center">Cartões</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="font-semibold mb-2">Débito:</p>
+                                    <ul class="space-y-1 text-sm">
+                                        <li>• Visa Débito</li>
+                                        <li>• Mastercard Débito</li>
+                                        <li>• Elo Débito</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="font-semibold mb-2">Crédito:</p>
+                                    <ul class="space-y-1 text-sm">
+                                        <li>• Visa</li>
+                                        <li>• Mastercard</li>
+                                        <li>• Elo</li>
+                                        <li>• American Express</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-white bg-opacity-20 p-3 rounded-lg text-center">
+                                <p class="text-xs font-semibold">Processamento: Instantâneo</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-600 text-white p-8 rounded-2xl card-hover">
+                            <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                                <path d="M17,12C17,14.42 15.28,16.44 13,16.9V21H11V16.9C8.72,16.44 7,14.42 7,12C7,9.58 8.72,7.56 11,7.1V2H13V7.1C15.28,7.56 17,9.58 17,12M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+                            </svg>
+                            <h4 class="text-xl font-bold mb-4 text-center">Bancos Digitais</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Nubank</li>
+                                <li>• C6 Bank</li>
+                                <li>• Next (Bradesco)</li>
+                                <li>• Original</li>
+                                <li>• Neon</li>
+                                <li>• 99Pay</li>
+                                <li>• Mercado Pago</li>
+                            </ul>
+                            <div class="mt-4 bg-white bg-opacity-20 p-3 rounded-lg text-center">
+                                <p class="text-xs font-semibold">Processamento: Instantâneo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instruções Importantes -->
+                <div class="bg-gradient-to-r from-orange-600 to-red-600 rounded-3xl shadow-2xl p-12 text-white">
+                    <div class="text-center mb-10">
+                        <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                            <path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-6">Instruções Importantes</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-6">Antes de Finalizar a Compra:</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">1.</span>
+                                    <span>Verifique se seu método de pagamento NÃO está na lista proibida</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">2.</span>
+                                    <span>Confirme que você tem saldo/limite suficiente</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">3.</span>
+                                    <span>Certifique-se de que o cartão está desbloqueado para compras online</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">4.</span>
+                                    <span>Tenha seus dados de segurança em mãos (CVV, senha, etc.)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-6">Se o Pagamento for Recusado:</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">•</span>
+                                    <span>Verifique se não está usando Banco Inter ou PicPay</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">•</span>
+                                    <span>Tente com outro cartão ou método aceito</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">•</span>
+                                    <span>Entre em contato com seu banco para verificar bloqueios</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-yellow-300 mr-3 mt-1">•</span>
+                                    <span>Se persistir, contate nosso suporte com detalhes do erro</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-2xl text-center">
+                        <p class="text-lg font-bold mb-2">Lembre-se: Use apenas métodos aceitos!</p>
+                        <p class="text-sm opacity-90">Isso garante que sua compra seja processada rapidamente e você receba seu produto sem atrasos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suporte Tab -->
+        <div id="suporte" class="tab-content">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Central de Suporte</h2>
+                <p class="text-xl text-gray-300 max-w-4xl mx-auto">
+                    Nossa equipe especializada está pronta para ajudar você com qualquer dúvida ou problema através do Discord. 
+                    Conheça nosso canal oficial e como obter o melhor suporte possível.
+                </p>
+            </div>
+
+            <div class="max-w-6xl mx-auto space-y-12">
+                <!-- Canal Oficial -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="text-center mb-10">
+                        <svg class="svg-icon mx-auto mb-6 text-emerald-500" viewBox="0 0 24 24">
+                            <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white mb-6">Canal Oficial de Atendimento</h3>
+                        <p class="text-lg text-gray-300">Atendimento exclusivo através do Discord</p>
+                    </div>
+
+                    <div class="max-w-2xl mx-auto">
+                        <div class="bg-purple-600 text-white p-12 rounded-3xl card-hover text-center">
+                            <svg class="svg-icon mx-auto mb-8" viewBox="0 0 24 24">
+                                <path d="M22,24L16.75,19L17.38,18.38C17.41,17.96 17.58,17.58 17.88,17.29C18.19,17 18.57,16.82 19,16.82C19.43,16.82 19.81,17 20.12,17.29C20.43,17.58 20.6,17.96 20.63,18.38L22,24M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z"/>
+                            </svg>
+                            <h4 class="text-3xl font-bold mb-6">Discord - Nosso Canal Oficial</h4>
+                            <div class="space-y-6">
+                                <p class="text-lg opacity-90">Atendimento exclusivo através do Discord com sistema de tickets organizado</p>
+                                <div class="bg-white bg-opacity-20 p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-4 text-xl">O que oferecemos:</h5>
+                                    <ul class="text-left space-y-3">
+                                        <li class="flex items-start">
+                                            <span class="text-purple-200 mr-3 mt-1">•</span>
+                                            <span><strong>Suporte técnico especializado</strong> - Equipe treinada para resolver qualquer problema</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-purple-200 mr-3 mt-1">•</span>
+                                            <span><strong>Sistema de tickets</strong> - Acompanhamento organizado do seu atendimento</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-purple-200 mr-3 mt-1">•</span>
+                                            <span><strong>Entrega de produtos</strong> - Receba seus produtos digitais diretamente</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-purple-200 mr-3 mt-1">•</span>
+                                            <span><strong>Comunidade ativa</strong> - Interaja com outros clientes e tire dúvidas</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-purple-200 mr-3 mt-1">•</span>
+                                            <span><strong>Atualizações em tempo real</strong> - Fique por dentro de novidades e promoções</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-purple-700 p-4 rounded-xl">
+                                    <p class="text-lg font-semibold">Tempo de Resposta: Até 30 minutos</p>
+                                    <p class="text-sm opacity-90 mt-2">Durante horário comercial: Segunda a Sábado, 09:00 às 22:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horário de Atendimento -->
+                <div class="gradient-emerald rounded-3xl shadow-2xl p-12 text-white">
+                    <div class="text-center mb-10">
+                        <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-6">Horário de Funcionamento</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl text-center">
+                            <h4 class="text-2xl font-bold mb-6">Atendimento Ativo</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white bg-opacity-20 p-4 rounded-xl">
+                                    <p class="text-lg font-bold mb-2">Segunda a Sábado</p>
+                                    <p class="text-3xl font-bold">09:00 às 22:00</p>
+                                </div>
+                                <p class="text-sm opacity-90">Horário de Brasília (GMT-3)</p>
+                                <div class="bg-emerald-700 p-4 rounded-xl">
+                                    <p class="font-semibold">Resposta garantida em até 30 minutos durante o expediente</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-8 rounded-2xl text-center">
+                            <h4 class="text-2xl font-bold mb-6">Fora do Horário</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white bg-opacity-20 p-4 rounded-xl">
+                                    <p class="text-lg font-bold mb-2">Domingos e Feriados</p>
+                                    <p class="text-xl font-bold">Atendimento Limitado</p>
+                                </div>
+                                <p class="text-sm opacity-90">Apenas emergências críticas</p>
+                                <div class="bg-orange-600 p-4 rounded-xl">
+                                    <p class="font-semibold">Mensagens serão respondidas no próximo dia útil</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Como Obter Melhor Atendimento -->
+                <div class="bg-gray-900 rounded-3xl shadow-2xl p-12 border border-gray-800">
+                    <div class="text-center mb-10">
+                        <svg class="svg-icon mx-auto mb-6 text-blue-500" viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold text-white mb-6">Como Obter o Melhor Atendimento</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-semibold text-green-400 mb-6">Informações Essenciais:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-green-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">Sempre Informe:</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• <strong>Número do pedido</strong> (fundamental para localizar sua compra)</li>
+                                        <li>• <strong>Descrição detalhada do problema</strong></li>
+                                        <li>• <strong>Prints ou evidências</strong> (quando aplicável)</li>
+                                        <li>• <strong>Dispositivo e sistema</strong> que está usando</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">Exemplo de Mensagem Perfeita:</h5>
+                                    <div class="bg-white bg-opacity-20 p-4 rounded-lg text-sm">
+                                        <p>"Olá! Preciso de ajuda com o pedido #12345. Comprei uma conta Netflix individual, mas quando tento fazer login aparece 'senha incorreta'. Já tentei copiar e colar exatamente como enviado. Estou usando um iPhone 13. Podem verificar?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-semibold text-red-400 mb-6">Comportamentos que Atrapalham:</h4>
+                            <div class="space-y-4">
+                                <div class="bg-red-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">Evite Fazer:</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• Enviar apenas "não funciona" sem detalhes</li>
+                                        <li>• Mandar múltiplas mensagens seguidas</li>
+                                        <li>• Usar linguagem ofensiva ou ameaças</li>
+                                        <li>• Exigir atendimento imediato fora do horário</li>
+                                        <li>• Mentir sobre problemas para obter vantagens</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-orange-600 text-white p-6 rounded-2xl">
+                                    <h5 class="font-bold mb-3">⚠️ Consequências:</h5>
+                                    <ul class="space-y-2 text-sm">
+                                        <li>• Atendimento mais demorado</li>
+                                        <li>• Bloqueio temporário ou permanente</li>
+                                        <li>• Recusa de suporte futuro</li>
+                                        <li>• Cancelamento sem reembolso</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aviso Importante -->
+                <div class="bg-red-600 rounded-3xl shadow-2xl p-12 text-white text-center">
+                    <svg class="svg-icon mx-auto mb-6" viewBox="0 0 24 24">
+                        <path d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+                    </svg>
+                    <h3 class="text-3xl font-bold mb-6">Importante: Apenas Discord</h3>
+                    <p class="text-xl mb-8 max-w-4xl mx-auto">
+                        NÃO oferecemos suporte através de WhatsApp, e-mail, telefone ou qualquer outro meio. 
+                        Todo atendimento é realizado EXCLUSIVAMENTE através do nosso servidor Discord.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-3">❌ Não Atendemos</h4>
+                            <ul class="text-sm space-y-2">
+                                <li>• WhatsApp</li>
+                                <li>• E-mail</li>
+                                <li>• Telefone</li>
+                                <li>• Redes sociais</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-3">✅ Atendemos Apenas</h4>
+                            <p class="text-lg font-bold text-purple-200">Discord Oficial</p>
+                            <p class="text-sm mt-2">Sistema de tickets organizado</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl">
+                            <h4 class="text-xl font-bold mb-3">⚠️ Cuidado</h4>
+                            <p class="text-sm">Golpistas podem tentar se passar por nós em outros canais. Sempre use apenas nosso Discord oficial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Add active class to clicked button
+            const clickedButton = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+        }
+        
+        // Initialize the page with the first tab active
+        document.addEventListener('DOMContentLoaded', function() {
+            showTab('inicio');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96fd7a4a616588b4',t:'MTc1NTMxMTA5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
